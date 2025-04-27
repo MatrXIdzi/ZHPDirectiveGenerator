@@ -4,15 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import pl.idzi.app.model.AbstractEntity;
 
 import java.util.UUID;
 
 
 @Entity
-public class Scout {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Scout extends AbstractEntity {
+
     private String firstname;
     private String surname;
     private String firstnameDativeCase;
@@ -32,10 +31,6 @@ public class Scout {
     }
 
     public Scout() {
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getFirstname() {

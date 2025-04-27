@@ -1,5 +1,6 @@
 package pl.idzi.app.model.user;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -11,6 +12,7 @@ public class Unit {
     private String district;
 
     //szczep
+    @Column(name = "group_name")
     private String group;
 
     //druzyna

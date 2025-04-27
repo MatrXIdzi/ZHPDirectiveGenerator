@@ -1,8 +1,6 @@
-package pl.idzi.app.controller.dto;
+package pl.idzi.app.controller.dto.scout;
 
 import jakarta.validation.constraints.*;
-
-import java.util.UUID;
 
 public class CreateScoutRequest {
     @NotNull(message = "Firstname cannot be null")

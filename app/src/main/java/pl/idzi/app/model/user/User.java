@@ -1,22 +1,28 @@
 package pl.idzi.app.model.user;
 
 import jakarta.persistence.*;
+import pl.idzi.app.model.AbstractEntity;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "username")
-})
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    @Column(unique = true, nullable = false)
+@Table(
+        name = "users"
+)
+@SecondaryTable(
+        name = "account",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"),
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "username")}
+)
+public class User extends AbstractEntity {
+
+    @Column(table = "account", unique = true, nullable = false)
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(table = "account", unique = true, nullable = false)
     private String username;
+    @Column(table = "account", nullable = false)
     private String password;
 
     private String firstname;
@@ -41,10 +47,6 @@ public class User {
         this.role = role;
         this.function = function;
         this.unit = unit;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getFirstname() {

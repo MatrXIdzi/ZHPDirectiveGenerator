@@ -1,12 +1,15 @@
 package pl.idzi.app.model.directive;
 
 import jakarta.persistence.*;
+import pl.idzi.app.model.AbstractEntity;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
-@Embeddable
-public class SubChapter {
+@Entity
+public class SubChapter extends AbstractEntity {
 
     private String title;
 
@@ -15,7 +18,7 @@ public class SubChapter {
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "subchapter_title")
     @Column(name = "content")
-    private TreeMap<SubChapterTitle,String> content = new TreeMap<>();
+    private LinkedHashMap<SubChapterTitle, String> content = new LinkedHashMap<>();
 
     public SubChapter() {
     }
@@ -26,7 +29,7 @@ public class SubChapter {
 
     public SubChapter(String title, TreeMap<SubChapterTitle, String> content) {
         this.title = title;
-        this.content = content;
+        this.content = new LinkedHashMap<>(content);
     }
 
     public String getTitle() {
@@ -38,11 +41,11 @@ public class SubChapter {
     }
 
     public TreeMap<SubChapterTitle, String> getContent() {
-        return content;
+        return new TreeMap<>(content);
     }
 
-    public void setContent(TreeMap<SubChapterTitle, String> content) {
-        this.content = content;
+    public void setContent(Map<SubChapterTitle, String> content) {
+        this.content = new LinkedHashMap<>(content);
     }
 
     public void put(SubChapterTitle subChapterTitle, String content) {

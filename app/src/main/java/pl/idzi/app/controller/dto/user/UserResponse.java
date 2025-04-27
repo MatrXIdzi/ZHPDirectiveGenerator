@@ -1,4 +1,4 @@
-package pl.idzi.app.controller.dto;
+package pl.idzi.app.controller.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

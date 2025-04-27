@@ -5,26 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.*;
+import pl.idzi.app.model.AbstractEntity;
 import pl.idzi.app.model.user.User;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
-public class Directive {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Directive extends AbstractEntity {
 
-    @ElementCollection
     @CollectionTable(name = "directive_entries", joinColumns = @JoinColumn(name = "directive_id"))
     @MapKeyColumn(name = "chapter")
-    @Column(name = "text")
-    @Enumerated(EnumType.STRING)
-    private TreeMap<ChapterTitle, SubChapter> chapters;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private LinkedHashMap<ChapterTitle, SubChapter> chapters = new LinkedHashMap<>();
 
     @Temporal(TemporalType.DATE)
     private LocalDate date;
@@ -41,23 +34,19 @@ public class Directive {
     }
 
     public Directive(TreeMap<ChapterTitle, SubChapter> chapters, LocalDate date, User author, String serialNumber, String city) {
-        this.chapters = chapters;
+        this.chapters = new LinkedHashMap<>(chapters);
         this.date = date;
         this.author = author;
         this.serialNumber = serialNumber;
         this.city = city;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     public TreeMap<ChapterTitle, SubChapter> getChapters() {
-        return chapters;
+        return new TreeMap<>(chapters);
     }
 
     public void setChapters(TreeMap<ChapterTitle, SubChapter> chapters) {
-        this.chapters = chapters;
+        this.chapters = new LinkedHashMap<>(chapters);
     }
 
     public LocalDate getDate() {

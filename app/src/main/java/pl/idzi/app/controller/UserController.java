@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.idzi.app.controller.dto.CreateUserRequest;
-import pl.idzi.app.controller.dto.UserResponse;
+import pl.idzi.app.controller.dto.user.CreateUserRequest;
+import pl.idzi.app.controller.dto.user.UserResponse;
 import pl.idzi.app.model.user.User;
-import pl.idzi.app.model.user.UserRole;
 import pl.idzi.app.service.UserService;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(user, UserResponse.class));
     }
 

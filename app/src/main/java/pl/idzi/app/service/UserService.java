@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.idzi.app.model.user.User;
 import pl.idzi.app.model.user.UserRole;
 import pl.idzi.app.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,8 +26,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> getUserByUsername(String username) {
+        return Optional.ofNullable(userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found")));
     }
 
     public User getUserById(UUID id) {

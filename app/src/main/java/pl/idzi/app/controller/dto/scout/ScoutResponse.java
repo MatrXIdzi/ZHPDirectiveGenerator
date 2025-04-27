@@ -1,4 +1,4 @@
-package pl.idzi.app.controller.dto;
+package pl.idzi.app.controller.dto.scout;
 
 import java.util.UUID;
 

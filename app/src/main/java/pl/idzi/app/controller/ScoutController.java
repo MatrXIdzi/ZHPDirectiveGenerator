@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.idzi.app.controller.dto.CreateScoutRequest;
-import pl.idzi.app.controller.dto.ScoutResponse;
+import pl.idzi.app.controller.dto.scout.CreateScoutRequest;
+import pl.idzi.app.controller.dto.scout.ScoutResponse;
 import pl.idzi.app.model.scout.Scout;
 import pl.idzi.app.service.ScoutService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

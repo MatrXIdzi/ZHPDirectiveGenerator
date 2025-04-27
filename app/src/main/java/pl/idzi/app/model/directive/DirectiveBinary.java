@@ -1,14 +1,12 @@
 package pl.idzi.app.model.directive;
 
 import jakarta.persistence.*;
+import pl.idzi.app.model.AbstractEntity;
 
 import java.util.UUID;
 
 @Entity
-public class DirectiveBinary {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class DirectiveBinary extends AbstractEntity {
 
     @OneToOne
     @JoinColumn(name = "directive_id", referencedColumnName = "id")
@@ -24,10 +22,6 @@ public class DirectiveBinary {
     public DirectiveBinary(Directive directive, byte[] content) {
         this.directive = directive;
         this.content = content;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public Directive getDirective() {
